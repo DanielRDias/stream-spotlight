@@ -13,13 +13,17 @@ type Stream @model {
 
 type Streamer @model @auth(rules: [{ allow: public, operations: [read] }]) {
   id: ID!
-  title: String!
+  name: String!
+  title: String
+
+  language: String
+  type: String
 
   stream: Stream @belongsTo
   votes: [Vote] @hasMany
 
-  startedAt: AWSDateTime!
-  endedAt: AWSDateTime!
+  startedAt: AWSDateTime
+  endedAt: AWSDateTime
 }
 
 type Vote
