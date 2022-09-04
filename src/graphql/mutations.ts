@@ -15,7 +15,10 @@ export const createStream = /* GraphQL */ `
       streamers {
         items {
           id
+          name
           title
+          language
+          type
           startedAt
           endedAt
           createdAt
@@ -42,7 +45,10 @@ export const updateStream = /* GraphQL */ `
       streamers {
         items {
           id
+          name
           title
+          language
+          type
           startedAt
           endedAt
           createdAt
@@ -69,7 +75,10 @@ export const deleteStream = /* GraphQL */ `
       streamers {
         items {
           id
+          name
           title
+          language
+          type
           startedAt
           endedAt
           createdAt
@@ -90,7 +99,10 @@ export const createStreamer = /* GraphQL */ `
   ) {
     createStreamer(input: $input, condition: $condition) {
       id
+      name
       title
+      language
+      type
       stream {
         id
         name
@@ -128,7 +140,10 @@ export const updateStreamer = /* GraphQL */ `
   ) {
     updateStreamer(input: $input, condition: $condition) {
       id
+      name
       title
+      language
+      type
       stream {
         id
         name
@@ -166,7 +181,10 @@ export const deleteStreamer = /* GraphQL */ `
   ) {
     deleteStreamer(input: $input, condition: $condition) {
       id
+      name
       title
+      language
+      type
       stream {
         id
         name
@@ -206,7 +224,10 @@ export const createVote = /* GraphQL */ `
       id
       streamer {
         id
+        name
         title
+        language
+        type
         stream {
           id
           name
@@ -241,7 +262,10 @@ export const updateVote = /* GraphQL */ `
       id
       streamer {
         id
+        name
         title
+        language
+        type
         stream {
           id
           name
@@ -276,7 +300,10 @@ export const deleteVote = /* GraphQL */ `
       id
       streamer {
         id
+        name
         title
+        language
+        type
         stream {
           id
           name

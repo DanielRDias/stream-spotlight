@@ -12,7 +12,10 @@ export const onCreateStream = /* GraphQL */ `
       streamers {
         items {
           id
+          name
           title
+          language
+          type
           startedAt
           endedAt
           createdAt
@@ -36,7 +39,10 @@ export const onUpdateStream = /* GraphQL */ `
       streamers {
         items {
           id
+          name
           title
+          language
+          type
           startedAt
           endedAt
           createdAt
@@ -60,7 +66,10 @@ export const onDeleteStream = /* GraphQL */ `
       streamers {
         items {
           id
+          name
           title
+          language
+          type
           startedAt
           endedAt
           createdAt
@@ -78,7 +87,10 @@ export const onCreateStreamer = /* GraphQL */ `
   subscription OnCreateStreamer {
     onCreateStreamer {
       id
+      name
       title
+      language
+      type
       stream {
         id
         name
@@ -113,7 +125,10 @@ export const onUpdateStreamer = /* GraphQL */ `
   subscription OnUpdateStreamer {
     onUpdateStreamer {
       id
+      name
       title
+      language
+      type
       stream {
         id
         name
@@ -148,7 +163,10 @@ export const onDeleteStreamer = /* GraphQL */ `
   subscription OnDeleteStreamer {
     onDeleteStreamer {
       id
+      name
       title
+      language
+      type
       stream {
         id
         name
@@ -185,7 +203,10 @@ export const onCreateVote = /* GraphQL */ `
       id
       streamer {
         id
+        name
         title
+        language
+        type
         stream {
           id
           name
@@ -217,7 +238,10 @@ export const onUpdateVote = /* GraphQL */ `
       id
       streamer {
         id
+        name
         title
+        language
+        type
         stream {
           id
           name
@@ -249,7 +273,10 @@ export const onDeleteVote = /* GraphQL */ `
       id
       streamer {
         id
+        name
         title
+        language
+        type
         stream {
           id
           name

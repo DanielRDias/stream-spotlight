@@ -12,7 +12,10 @@ export const getStream = /* GraphQL */ `
       streamers {
         items {
           id
+          name
           title
+          language
+          type
           startedAt
           endedAt
           createdAt
@@ -52,7 +55,10 @@ export const getStreamer = /* GraphQL */ `
   query GetStreamer($id: ID!) {
     getStreamer(id: $id) {
       id
+      name
       title
+      language
+      type
       stream {
         id
         name
@@ -92,7 +98,10 @@ export const listStreamers = /* GraphQL */ `
     listStreamers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        name
         title
+        language
+        type
         stream {
           id
           name
@@ -120,7 +129,10 @@ export const getVote = /* GraphQL */ `
       id
       streamer {
         id
+        name
         title
+        language
+        type
         stream {
           id
           name
@@ -157,7 +169,10 @@ export const listVotes = /* GraphQL */ `
         id
         streamer {
           id
+          name
           title
+          language
+          type
           startedAt
           endedAt
           createdAt
