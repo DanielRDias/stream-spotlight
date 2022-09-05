@@ -84,10 +84,11 @@ export type Streamer = {
   type?: string | null,
   stream?: Stream | null,
   votes?: ModelVoteConnection | null,
+  viewers?: ModelViewersConnection | null,
   startedAt?: string | null,
   endedAt?: string | null,
-  createdAt: string,
-  updatedAt: string,
+  createdAt?: string | null,
+  updatedAt?: string | null,
   streamStreamersId?: string | null,
 };
 
@@ -106,6 +107,22 @@ export type Vote = {
   updatedAt: string,
   streamerVotesId?: string | null,
   owner?: string | null,
+};
+
+export type ModelViewersConnection = {
+  __typename: "ModelViewersConnection",
+  items:  Array<Viewers | null >,
+  nextToken?: string | null,
+};
+
+export type Viewers = {
+  __typename: "Viewers",
+  id: string,
+  streamer: Streamer,
+  viewers: number,
+  createdAt?: string | null,
+  updatedAt: string,
+  streamerViewersId?: string | null,
 };
 
 export type UpdateStreamInput = {
@@ -127,6 +144,8 @@ export type CreateStreamerInput = {
   type?: string | null,
   startedAt?: string | null,
   endedAt?: string | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
   streamStreamersId?: string | null,
 };
 
@@ -137,6 +156,8 @@ export type ModelStreamerConditionInput = {
   type?: ModelStringInput | null,
   startedAt?: ModelStringInput | null,
   endedAt?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelStreamerConditionInput | null > | null,
   or?: Array< ModelStreamerConditionInput | null > | null,
   not?: ModelStreamerConditionInput | null,
@@ -167,10 +188,51 @@ export type UpdateStreamerInput = {
   type?: string | null,
   startedAt?: string | null,
   endedAt?: string | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
   streamStreamersId?: string | null,
 };
 
 export type DeleteStreamerInput = {
+  id: string,
+};
+
+export type CreateViewersInput = {
+  id?: string | null,
+  viewers: number,
+  createdAt?: string | null,
+  streamerViewersId?: string | null,
+};
+
+export type ModelViewersConditionInput = {
+  viewers?: ModelIntInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelViewersConditionInput | null > | null,
+  or?: Array< ModelViewersConditionInput | null > | null,
+  not?: ModelViewersConditionInput | null,
+  streamerViewersId?: ModelIDInput | null,
+};
+
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type UpdateViewersInput = {
+  id: string,
+  viewers?: number | null,
+  createdAt?: string | null,
+  streamerViewersId?: string | null,
+};
+
+export type DeleteViewersInput = {
   id: string,
 };
 
@@ -229,10 +291,22 @@ export type ModelStreamerFilterInput = {
   type?: ModelStringInput | null,
   startedAt?: ModelStringInput | null,
   endedAt?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelStreamerFilterInput | null > | null,
   or?: Array< ModelStreamerFilterInput | null > | null,
   not?: ModelStreamerFilterInput | null,
   streamStreamersId?: ModelIDInput | null,
+};
+
+export type ModelViewersFilterInput = {
+  id?: ModelIDInput | null,
+  viewers?: ModelIntInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelViewersFilterInput | null > | null,
+  or?: Array< ModelViewersFilterInput | null > | null,
+  not?: ModelViewersFilterInput | null,
+  streamerViewersId?: ModelIDInput | null,
 };
 
 export type ModelVoteFilterInput = {
@@ -283,6 +357,40 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
+export type ModelSubscriptionStreamerFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  title?: ModelSubscriptionStringInput | null,
+  language?: ModelSubscriptionStringInput | null,
+  type?: ModelSubscriptionStringInput | null,
+  startedAt?: ModelSubscriptionStringInput | null,
+  endedAt?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionStreamerFilterInput | null > | null,
+  or?: Array< ModelSubscriptionStreamerFilterInput | null > | null,
+};
+
+export type ModelSubscriptionViewersFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  viewers?: ModelSubscriptionIntInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionViewersFilterInput | null > | null,
+  or?: Array< ModelSubscriptionViewersFilterInput | null > | null,
+};
+
+export type ModelSubscriptionIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
+};
+
 export type CreateStreamMutationVariables = {
   input: CreateStreamInput,
   condition?: ModelStreamConditionInput | null,
@@ -306,8 +414,8 @@ export type CreateStreamMutation = {
         type?: string | null,
         startedAt?: string | null,
         endedAt?: string | null,
-        createdAt: string,
-        updatedAt: string,
+        createdAt?: string | null,
+        updatedAt?: string | null,
         streamStreamersId?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -340,8 +448,8 @@ export type UpdateStreamMutation = {
         type?: string | null,
         startedAt?: string | null,
         endedAt?: string | null,
-        createdAt: string,
-        updatedAt: string,
+        createdAt?: string | null,
+        updatedAt?: string | null,
         streamStreamersId?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -374,8 +482,8 @@ export type DeleteStreamMutation = {
         type?: string | null,
         startedAt?: string | null,
         endedAt?: string | null,
-        createdAt: string,
-        updatedAt: string,
+        createdAt?: string | null,
+        updatedAt?: string | null,
         streamStreamersId?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -424,10 +532,22 @@ export type CreateStreamerMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    viewers?:  {
+      __typename: "ModelViewersConnection",
+      items:  Array< {
+        __typename: "Viewers",
+        id: string,
+        viewers: number,
+        createdAt?: string | null,
+        updatedAt: string,
+        streamerViewersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     startedAt?: string | null,
     endedAt?: string | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     streamStreamersId?: string | null,
   } | null,
 };
@@ -471,10 +591,22 @@ export type UpdateStreamerMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    viewers?:  {
+      __typename: "ModelViewersConnection",
+      items:  Array< {
+        __typename: "Viewers",
+        id: string,
+        viewers: number,
+        createdAt?: string | null,
+        updatedAt: string,
+        streamerViewersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     startedAt?: string | null,
     endedAt?: string | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     streamStreamersId?: string | null,
   } | null,
 };
@@ -518,11 +650,161 @@ export type DeleteStreamerMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    viewers?:  {
+      __typename: "ModelViewersConnection",
+      items:  Array< {
+        __typename: "Viewers",
+        id: string,
+        viewers: number,
+        createdAt?: string | null,
+        updatedAt: string,
+        streamerViewersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     startedAt?: string | null,
     endedAt?: string | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     streamStreamersId?: string | null,
+  } | null,
+};
+
+export type CreateViewersMutationVariables = {
+  input: CreateViewersInput,
+  condition?: ModelViewersConditionInput | null,
+};
+
+export type CreateViewersMutation = {
+  createViewers?:  {
+    __typename: "Viewers",
+    id: string,
+    streamer:  {
+      __typename: "Streamer",
+      id: string,
+      name: string,
+      title?: string | null,
+      language?: string | null,
+      type?: string | null,
+      stream?:  {
+        __typename: "Stream",
+        id: string,
+        name: string,
+        language?: string | null,
+        type?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      votes?:  {
+        __typename: "ModelVoteConnection",
+        nextToken?: string | null,
+      } | null,
+      viewers?:  {
+        __typename: "ModelViewersConnection",
+        nextToken?: string | null,
+      } | null,
+      startedAt?: string | null,
+      endedAt?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
+      streamStreamersId?: string | null,
+    },
+    viewers: number,
+    createdAt?: string | null,
+    updatedAt: string,
+    streamerViewersId?: string | null,
+  } | null,
+};
+
+export type UpdateViewersMutationVariables = {
+  input: UpdateViewersInput,
+  condition?: ModelViewersConditionInput | null,
+};
+
+export type UpdateViewersMutation = {
+  updateViewers?:  {
+    __typename: "Viewers",
+    id: string,
+    streamer:  {
+      __typename: "Streamer",
+      id: string,
+      name: string,
+      title?: string | null,
+      language?: string | null,
+      type?: string | null,
+      stream?:  {
+        __typename: "Stream",
+        id: string,
+        name: string,
+        language?: string | null,
+        type?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      votes?:  {
+        __typename: "ModelVoteConnection",
+        nextToken?: string | null,
+      } | null,
+      viewers?:  {
+        __typename: "ModelViewersConnection",
+        nextToken?: string | null,
+      } | null,
+      startedAt?: string | null,
+      endedAt?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
+      streamStreamersId?: string | null,
+    },
+    viewers: number,
+    createdAt?: string | null,
+    updatedAt: string,
+    streamerViewersId?: string | null,
+  } | null,
+};
+
+export type DeleteViewersMutationVariables = {
+  input: DeleteViewersInput,
+  condition?: ModelViewersConditionInput | null,
+};
+
+export type DeleteViewersMutation = {
+  deleteViewers?:  {
+    __typename: "Viewers",
+    id: string,
+    streamer:  {
+      __typename: "Streamer",
+      id: string,
+      name: string,
+      title?: string | null,
+      language?: string | null,
+      type?: string | null,
+      stream?:  {
+        __typename: "Stream",
+        id: string,
+        name: string,
+        language?: string | null,
+        type?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      votes?:  {
+        __typename: "ModelVoteConnection",
+        nextToken?: string | null,
+      } | null,
+      viewers?:  {
+        __typename: "ModelViewersConnection",
+        nextToken?: string | null,
+      } | null,
+      startedAt?: string | null,
+      endedAt?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
+      streamStreamersId?: string | null,
+    },
+    viewers: number,
+    createdAt?: string | null,
+    updatedAt: string,
+    streamerViewersId?: string | null,
   } | null,
 };
 
@@ -555,10 +837,14 @@ export type CreateVoteMutation = {
         __typename: "ModelVoteConnection",
         nextToken?: string | null,
       } | null,
+      viewers?:  {
+        __typename: "ModelViewersConnection",
+        nextToken?: string | null,
+      } | null,
       startedAt?: string | null,
       endedAt?: string | null,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       streamStreamersId?: string | null,
     },
     vote: boolean,
@@ -598,10 +884,14 @@ export type UpdateVoteMutation = {
         __typename: "ModelVoteConnection",
         nextToken?: string | null,
       } | null,
+      viewers?:  {
+        __typename: "ModelViewersConnection",
+        nextToken?: string | null,
+      } | null,
       startedAt?: string | null,
       endedAt?: string | null,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       streamStreamersId?: string | null,
     },
     vote: boolean,
@@ -641,10 +931,14 @@ export type DeleteVoteMutation = {
         __typename: "ModelVoteConnection",
         nextToken?: string | null,
       } | null,
+      viewers?:  {
+        __typename: "ModelViewersConnection",
+        nextToken?: string | null,
+      } | null,
       startedAt?: string | null,
       endedAt?: string | null,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       streamStreamersId?: string | null,
     },
     vote: boolean,
@@ -677,8 +971,8 @@ export type GetStreamQuery = {
         type?: string | null,
         startedAt?: string | null,
         endedAt?: string | null,
-        createdAt: string,
-        updatedAt: string,
+        createdAt?: string | null,
+        updatedAt?: string | null,
         streamStreamersId?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -752,10 +1046,22 @@ export type GetStreamerQuery = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    viewers?:  {
+      __typename: "ModelViewersConnection",
+      items:  Array< {
+        __typename: "Viewers",
+        id: string,
+        viewers: number,
+        createdAt?: string | null,
+        updatedAt: string,
+        streamerViewersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     startedAt?: string | null,
     endedAt?: string | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     streamStreamersId?: string | null,
   } | null,
 };
@@ -789,11 +1095,94 @@ export type ListStreamersQuery = {
         __typename: "ModelVoteConnection",
         nextToken?: string | null,
       } | null,
+      viewers?:  {
+        __typename: "ModelViewersConnection",
+        nextToken?: string | null,
+      } | null,
       startedAt?: string | null,
       endedAt?: string | null,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       streamStreamersId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetViewersQueryVariables = {
+  id: string,
+};
+
+export type GetViewersQuery = {
+  getViewers?:  {
+    __typename: "Viewers",
+    id: string,
+    streamer:  {
+      __typename: "Streamer",
+      id: string,
+      name: string,
+      title?: string | null,
+      language?: string | null,
+      type?: string | null,
+      stream?:  {
+        __typename: "Stream",
+        id: string,
+        name: string,
+        language?: string | null,
+        type?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      votes?:  {
+        __typename: "ModelVoteConnection",
+        nextToken?: string | null,
+      } | null,
+      viewers?:  {
+        __typename: "ModelViewersConnection",
+        nextToken?: string | null,
+      } | null,
+      startedAt?: string | null,
+      endedAt?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
+      streamStreamersId?: string | null,
+    },
+    viewers: number,
+    createdAt?: string | null,
+    updatedAt: string,
+    streamerViewersId?: string | null,
+  } | null,
+};
+
+export type ListViewersQueryVariables = {
+  filter?: ModelViewersFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListViewersQuery = {
+  listViewers?:  {
+    __typename: "ModelViewersConnection",
+    items:  Array< {
+      __typename: "Viewers",
+      id: string,
+      streamer:  {
+        __typename: "Streamer",
+        id: string,
+        name: string,
+        title?: string | null,
+        language?: string | null,
+        type?: string | null,
+        startedAt?: string | null,
+        endedAt?: string | null,
+        createdAt?: string | null,
+        updatedAt?: string | null,
+        streamStreamersId?: string | null,
+      },
+      viewers: number,
+      createdAt?: string | null,
+      updatedAt: string,
+      streamerViewersId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -827,10 +1216,14 @@ export type GetVoteQuery = {
         __typename: "ModelVoteConnection",
         nextToken?: string | null,
       } | null,
+      viewers?:  {
+        __typename: "ModelViewersConnection",
+        nextToken?: string | null,
+      } | null,
       startedAt?: string | null,
       endedAt?: string | null,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       streamStreamersId?: string | null,
     },
     vote: boolean,
@@ -862,8 +1255,8 @@ export type ListVotesQuery = {
         type?: string | null,
         startedAt?: string | null,
         endedAt?: string | null,
-        createdAt: string,
-        updatedAt: string,
+        createdAt?: string | null,
+        updatedAt?: string | null,
         streamStreamersId?: string | null,
       },
       vote: boolean,
@@ -898,8 +1291,8 @@ export type OnCreateStreamSubscription = {
         type?: string | null,
         startedAt?: string | null,
         endedAt?: string | null,
-        createdAt: string,
-        updatedAt: string,
+        createdAt?: string | null,
+        updatedAt?: string | null,
         streamStreamersId?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -931,8 +1324,8 @@ export type OnUpdateStreamSubscription = {
         type?: string | null,
         startedAt?: string | null,
         endedAt?: string | null,
-        createdAt: string,
-        updatedAt: string,
+        createdAt?: string | null,
+        updatedAt?: string | null,
         streamStreamersId?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -964,8 +1357,8 @@ export type OnDeleteStreamSubscription = {
         type?: string | null,
         startedAt?: string | null,
         endedAt?: string | null,
-        createdAt: string,
-        updatedAt: string,
+        createdAt?: string | null,
+        updatedAt?: string | null,
         streamStreamersId?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -973,6 +1366,10 @@ export type OnDeleteStreamSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnCreateStreamerSubscriptionVariables = {
+  filter?: ModelSubscriptionStreamerFilterInput | null,
 };
 
 export type OnCreateStreamerSubscription = {
@@ -1009,12 +1406,28 @@ export type OnCreateStreamerSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    viewers?:  {
+      __typename: "ModelViewersConnection",
+      items:  Array< {
+        __typename: "Viewers",
+        id: string,
+        viewers: number,
+        createdAt?: string | null,
+        updatedAt: string,
+        streamerViewersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     startedAt?: string | null,
     endedAt?: string | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     streamStreamersId?: string | null,
   } | null,
+};
+
+export type OnUpdateStreamerSubscriptionVariables = {
+  filter?: ModelSubscriptionStreamerFilterInput | null,
 };
 
 export type OnUpdateStreamerSubscription = {
@@ -1051,12 +1464,28 @@ export type OnUpdateStreamerSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    viewers?:  {
+      __typename: "ModelViewersConnection",
+      items:  Array< {
+        __typename: "Viewers",
+        id: string,
+        viewers: number,
+        createdAt?: string | null,
+        updatedAt: string,
+        streamerViewersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     startedAt?: string | null,
     endedAt?: string | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     streamStreamersId?: string | null,
   } | null,
+};
+
+export type OnDeleteStreamerSubscriptionVariables = {
+  filter?: ModelSubscriptionStreamerFilterInput | null,
 };
 
 export type OnDeleteStreamerSubscription = {
@@ -1093,11 +1522,158 @@ export type OnDeleteStreamerSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    viewers?:  {
+      __typename: "ModelViewersConnection",
+      items:  Array< {
+        __typename: "Viewers",
+        id: string,
+        viewers: number,
+        createdAt?: string | null,
+        updatedAt: string,
+        streamerViewersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     startedAt?: string | null,
     endedAt?: string | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     streamStreamersId?: string | null,
+  } | null,
+};
+
+export type OnCreateViewersSubscriptionVariables = {
+  filter?: ModelSubscriptionViewersFilterInput | null,
+};
+
+export type OnCreateViewersSubscription = {
+  onCreateViewers?:  {
+    __typename: "Viewers",
+    id: string,
+    streamer:  {
+      __typename: "Streamer",
+      id: string,
+      name: string,
+      title?: string | null,
+      language?: string | null,
+      type?: string | null,
+      stream?:  {
+        __typename: "Stream",
+        id: string,
+        name: string,
+        language?: string | null,
+        type?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      votes?:  {
+        __typename: "ModelVoteConnection",
+        nextToken?: string | null,
+      } | null,
+      viewers?:  {
+        __typename: "ModelViewersConnection",
+        nextToken?: string | null,
+      } | null,
+      startedAt?: string | null,
+      endedAt?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
+      streamStreamersId?: string | null,
+    },
+    viewers: number,
+    createdAt?: string | null,
+    updatedAt: string,
+    streamerViewersId?: string | null,
+  } | null,
+};
+
+export type OnUpdateViewersSubscriptionVariables = {
+  filter?: ModelSubscriptionViewersFilterInput | null,
+};
+
+export type OnUpdateViewersSubscription = {
+  onUpdateViewers?:  {
+    __typename: "Viewers",
+    id: string,
+    streamer:  {
+      __typename: "Streamer",
+      id: string,
+      name: string,
+      title?: string | null,
+      language?: string | null,
+      type?: string | null,
+      stream?:  {
+        __typename: "Stream",
+        id: string,
+        name: string,
+        language?: string | null,
+        type?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      votes?:  {
+        __typename: "ModelVoteConnection",
+        nextToken?: string | null,
+      } | null,
+      viewers?:  {
+        __typename: "ModelViewersConnection",
+        nextToken?: string | null,
+      } | null,
+      startedAt?: string | null,
+      endedAt?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
+      streamStreamersId?: string | null,
+    },
+    viewers: number,
+    createdAt?: string | null,
+    updatedAt: string,
+    streamerViewersId?: string | null,
+  } | null,
+};
+
+export type OnDeleteViewersSubscriptionVariables = {
+  filter?: ModelSubscriptionViewersFilterInput | null,
+};
+
+export type OnDeleteViewersSubscription = {
+  onDeleteViewers?:  {
+    __typename: "Viewers",
+    id: string,
+    streamer:  {
+      __typename: "Streamer",
+      id: string,
+      name: string,
+      title?: string | null,
+      language?: string | null,
+      type?: string | null,
+      stream?:  {
+        __typename: "Stream",
+        id: string,
+        name: string,
+        language?: string | null,
+        type?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      votes?:  {
+        __typename: "ModelVoteConnection",
+        nextToken?: string | null,
+      } | null,
+      viewers?:  {
+        __typename: "ModelViewersConnection",
+        nextToken?: string | null,
+      } | null,
+      startedAt?: string | null,
+      endedAt?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
+      streamStreamersId?: string | null,
+    },
+    viewers: number,
+    createdAt?: string | null,
+    updatedAt: string,
+    streamerViewersId?: string | null,
   } | null,
 };
 
@@ -1129,10 +1705,14 @@ export type OnCreateVoteSubscription = {
         __typename: "ModelVoteConnection",
         nextToken?: string | null,
       } | null,
+      viewers?:  {
+        __typename: "ModelViewersConnection",
+        nextToken?: string | null,
+      } | null,
       startedAt?: string | null,
       endedAt?: string | null,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       streamStreamersId?: string | null,
     },
     vote: boolean,
@@ -1171,10 +1751,14 @@ export type OnUpdateVoteSubscription = {
         __typename: "ModelVoteConnection",
         nextToken?: string | null,
       } | null,
+      viewers?:  {
+        __typename: "ModelViewersConnection",
+        nextToken?: string | null,
+      } | null,
       startedAt?: string | null,
       endedAt?: string | null,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       streamStreamersId?: string | null,
     },
     vote: boolean,
@@ -1213,10 +1797,14 @@ export type OnDeleteVoteSubscription = {
         __typename: "ModelVoteConnection",
         nextToken?: string | null,
       } | null,
+      viewers?:  {
+        __typename: "ModelViewersConnection",
+        nextToken?: string | null,
+      } | null,
       startedAt?: string | null,
       endedAt?: string | null,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       streamStreamersId?: string | null,
     },
     vote: boolean,

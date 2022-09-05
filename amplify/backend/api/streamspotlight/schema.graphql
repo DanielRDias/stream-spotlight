@@ -11,7 +11,7 @@ type Stream @model {
   streamers: [Streamer] @hasMany
 }
 
-type Streamer @model @auth(rules: [{ allow: public, operations: [read] }]) {
+type Streamer @model {
   id: ID!
   name: String!
   title: String
@@ -21,9 +21,13 @@ type Streamer @model @auth(rules: [{ allow: public, operations: [read] }]) {
 
   stream: Stream @belongsTo
   votes: [Vote] @hasMany
+  viewers: [Viewers] @hasMany
 
   startedAt: AWSDateTime
   endedAt: AWSDateTime
+
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
 }
 
 type Vote
@@ -32,4 +36,11 @@ type Vote
   id: ID!
   streamer: Streamer! @belongsTo
   vote: Boolean!
+}
+
+type Viewers @model {
+  id: ID!
+  streamer: Streamer! @belongsTo
+  viewers: Int!
+  createdAt: AWSDateTime
 }

@@ -125,6 +125,16 @@ export const createStreamer = /* GraphQL */ `
         }
         nextToken
       }
+      viewers {
+        items {
+          id
+          viewers
+          createdAt
+          updatedAt
+          streamerViewersId
+        }
+        nextToken
+      }
       startedAt
       endedAt
       createdAt
@@ -163,6 +173,16 @@ export const updateStreamer = /* GraphQL */ `
           updatedAt
           streamerVotesId
           owner
+        }
+        nextToken
+      }
+      viewers {
+        items {
+          id
+          viewers
+          createdAt
+          updatedAt
+          streamerViewersId
         }
         nextToken
       }
@@ -207,11 +227,141 @@ export const deleteStreamer = /* GraphQL */ `
         }
         nextToken
       }
+      viewers {
+        items {
+          id
+          viewers
+          createdAt
+          updatedAt
+          streamerViewersId
+        }
+        nextToken
+      }
       startedAt
       endedAt
       createdAt
       updatedAt
       streamStreamersId
+    }
+  }
+`;
+export const createViewers = /* GraphQL */ `
+  mutation CreateViewers(
+    $input: CreateViewersInput!
+    $condition: ModelViewersConditionInput
+  ) {
+    createViewers(input: $input, condition: $condition) {
+      id
+      streamer {
+        id
+        name
+        title
+        language
+        type
+        stream {
+          id
+          name
+          language
+          type
+          createdAt
+          updatedAt
+        }
+        votes {
+          nextToken
+        }
+        viewers {
+          nextToken
+        }
+        startedAt
+        endedAt
+        createdAt
+        updatedAt
+        streamStreamersId
+      }
+      viewers
+      createdAt
+      updatedAt
+      streamerViewersId
+    }
+  }
+`;
+export const updateViewers = /* GraphQL */ `
+  mutation UpdateViewers(
+    $input: UpdateViewersInput!
+    $condition: ModelViewersConditionInput
+  ) {
+    updateViewers(input: $input, condition: $condition) {
+      id
+      streamer {
+        id
+        name
+        title
+        language
+        type
+        stream {
+          id
+          name
+          language
+          type
+          createdAt
+          updatedAt
+        }
+        votes {
+          nextToken
+        }
+        viewers {
+          nextToken
+        }
+        startedAt
+        endedAt
+        createdAt
+        updatedAt
+        streamStreamersId
+      }
+      viewers
+      createdAt
+      updatedAt
+      streamerViewersId
+    }
+  }
+`;
+export const deleteViewers = /* GraphQL */ `
+  mutation DeleteViewers(
+    $input: DeleteViewersInput!
+    $condition: ModelViewersConditionInput
+  ) {
+    deleteViewers(input: $input, condition: $condition) {
+      id
+      streamer {
+        id
+        name
+        title
+        language
+        type
+        stream {
+          id
+          name
+          language
+          type
+          createdAt
+          updatedAt
+        }
+        votes {
+          nextToken
+        }
+        viewers {
+          nextToken
+        }
+        startedAt
+        endedAt
+        createdAt
+        updatedAt
+        streamStreamersId
+      }
+      viewers
+      createdAt
+      updatedAt
+      streamerViewersId
     }
   }
 `;
@@ -237,6 +387,9 @@ export const createVote = /* GraphQL */ `
           updatedAt
         }
         votes {
+          nextToken
+        }
+        viewers {
           nextToken
         }
         startedAt
@@ -277,6 +430,9 @@ export const updateVote = /* GraphQL */ `
         votes {
           nextToken
         }
+        viewers {
+          nextToken
+        }
         startedAt
         endedAt
         createdAt
@@ -313,6 +469,9 @@ export const deleteVote = /* GraphQL */ `
           updatedAt
         }
         votes {
+          nextToken
+        }
+        viewers {
           nextToken
         }
         startedAt

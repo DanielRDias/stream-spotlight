@@ -81,6 +81,16 @@ export const getStreamer = /* GraphQL */ `
         }
         nextToken
       }
+      viewers {
+        items {
+          id
+          viewers
+          createdAt
+          updatedAt
+          streamerViewersId
+        }
+        nextToken
+      }
       startedAt
       endedAt
       createdAt
@@ -113,11 +123,81 @@ export const listStreamers = /* GraphQL */ `
         votes {
           nextToken
         }
+        viewers {
+          nextToken
+        }
         startedAt
         endedAt
         createdAt
         updatedAt
         streamStreamersId
+      }
+      nextToken
+    }
+  }
+`;
+export const getViewers = /* GraphQL */ `
+  query GetViewers($id: ID!) {
+    getViewers(id: $id) {
+      id
+      streamer {
+        id
+        name
+        title
+        language
+        type
+        stream {
+          id
+          name
+          language
+          type
+          createdAt
+          updatedAt
+        }
+        votes {
+          nextToken
+        }
+        viewers {
+          nextToken
+        }
+        startedAt
+        endedAt
+        createdAt
+        updatedAt
+        streamStreamersId
+      }
+      viewers
+      createdAt
+      updatedAt
+      streamerViewersId
+    }
+  }
+`;
+export const listViewers = /* GraphQL */ `
+  query ListViewers(
+    $filter: ModelViewersFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listViewers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        streamer {
+          id
+          name
+          title
+          language
+          type
+          startedAt
+          endedAt
+          createdAt
+          updatedAt
+          streamStreamersId
+        }
+        viewers
+        createdAt
+        updatedAt
+        streamerViewersId
       }
       nextToken
     }
@@ -142,6 +222,9 @@ export const getVote = /* GraphQL */ `
           updatedAt
         }
         votes {
+          nextToken
+        }
+        viewers {
           nextToken
         }
         startedAt

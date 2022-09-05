@@ -84,8 +84,8 @@ export const onDeleteStream = /* GraphQL */ `
   }
 `;
 export const onCreateStreamer = /* GraphQL */ `
-  subscription OnCreateStreamer {
-    onCreateStreamer {
+  subscription OnCreateStreamer($filter: ModelSubscriptionStreamerFilterInput) {
+    onCreateStreamer(filter: $filter) {
       id
       name
       title
@@ -110,6 +110,16 @@ export const onCreateStreamer = /* GraphQL */ `
           updatedAt
           streamerVotesId
           owner
+        }
+        nextToken
+      }
+      viewers {
+        items {
+          id
+          viewers
+          createdAt
+          updatedAt
+          streamerViewersId
         }
         nextToken
       }
@@ -122,8 +132,8 @@ export const onCreateStreamer = /* GraphQL */ `
   }
 `;
 export const onUpdateStreamer = /* GraphQL */ `
-  subscription OnUpdateStreamer {
-    onUpdateStreamer {
+  subscription OnUpdateStreamer($filter: ModelSubscriptionStreamerFilterInput) {
+    onUpdateStreamer(filter: $filter) {
       id
       name
       title
@@ -148,6 +158,16 @@ export const onUpdateStreamer = /* GraphQL */ `
           updatedAt
           streamerVotesId
           owner
+        }
+        nextToken
+      }
+      viewers {
+        items {
+          id
+          viewers
+          createdAt
+          updatedAt
+          streamerViewersId
         }
         nextToken
       }
@@ -160,8 +180,8 @@ export const onUpdateStreamer = /* GraphQL */ `
   }
 `;
 export const onDeleteStreamer = /* GraphQL */ `
-  subscription OnDeleteStreamer {
-    onDeleteStreamer {
+  subscription OnDeleteStreamer($filter: ModelSubscriptionStreamerFilterInput) {
+    onDeleteStreamer(filter: $filter) {
       id
       name
       title
@@ -189,11 +209,132 @@ export const onDeleteStreamer = /* GraphQL */ `
         }
         nextToken
       }
+      viewers {
+        items {
+          id
+          viewers
+          createdAt
+          updatedAt
+          streamerViewersId
+        }
+        nextToken
+      }
       startedAt
       endedAt
       createdAt
       updatedAt
       streamStreamersId
+    }
+  }
+`;
+export const onCreateViewers = /* GraphQL */ `
+  subscription OnCreateViewers($filter: ModelSubscriptionViewersFilterInput) {
+    onCreateViewers(filter: $filter) {
+      id
+      streamer {
+        id
+        name
+        title
+        language
+        type
+        stream {
+          id
+          name
+          language
+          type
+          createdAt
+          updatedAt
+        }
+        votes {
+          nextToken
+        }
+        viewers {
+          nextToken
+        }
+        startedAt
+        endedAt
+        createdAt
+        updatedAt
+        streamStreamersId
+      }
+      viewers
+      createdAt
+      updatedAt
+      streamerViewersId
+    }
+  }
+`;
+export const onUpdateViewers = /* GraphQL */ `
+  subscription OnUpdateViewers($filter: ModelSubscriptionViewersFilterInput) {
+    onUpdateViewers(filter: $filter) {
+      id
+      streamer {
+        id
+        name
+        title
+        language
+        type
+        stream {
+          id
+          name
+          language
+          type
+          createdAt
+          updatedAt
+        }
+        votes {
+          nextToken
+        }
+        viewers {
+          nextToken
+        }
+        startedAt
+        endedAt
+        createdAt
+        updatedAt
+        streamStreamersId
+      }
+      viewers
+      createdAt
+      updatedAt
+      streamerViewersId
+    }
+  }
+`;
+export const onDeleteViewers = /* GraphQL */ `
+  subscription OnDeleteViewers($filter: ModelSubscriptionViewersFilterInput) {
+    onDeleteViewers(filter: $filter) {
+      id
+      streamer {
+        id
+        name
+        title
+        language
+        type
+        stream {
+          id
+          name
+          language
+          type
+          createdAt
+          updatedAt
+        }
+        votes {
+          nextToken
+        }
+        viewers {
+          nextToken
+        }
+        startedAt
+        endedAt
+        createdAt
+        updatedAt
+        streamStreamersId
+      }
+      viewers
+      createdAt
+      updatedAt
+      streamerViewersId
     }
   }
 `;
@@ -216,6 +357,9 @@ export const onCreateVote = /* GraphQL */ `
           updatedAt
         }
         votes {
+          nextToken
+        }
+        viewers {
           nextToken
         }
         startedAt
@@ -253,6 +397,9 @@ export const onUpdateVote = /* GraphQL */ `
         votes {
           nextToken
         }
+        viewers {
+          nextToken
+        }
         startedAt
         endedAt
         createdAt
@@ -286,6 +433,9 @@ export const onDeleteVote = /* GraphQL */ `
           updatedAt
         }
         votes {
+          nextToken
+        }
+        viewers {
           nextToken
         }
         startedAt
