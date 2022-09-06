@@ -8,6 +8,7 @@ type Stream @model {
   name: String!
   language: String
   type: String
+
   streamers: [Streamer] @hasMany
 }
 
@@ -19,15 +20,15 @@ type Streamer @model {
   language: String
   type: String
 
-  stream: Stream @belongsTo
-  votes: [Vote] @hasMany
-  viewers: [Viewers] @hasMany
-
   startedAt: AWSDateTime
   endedAt: AWSDateTime
 
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
+
+  stream: Stream @belongsTo
+  votes: [Vote] @hasMany
+  viewers: [Viewers] @hasMany
 }
 
 type Vote
@@ -40,7 +41,8 @@ type Vote
 
 type Viewers @model {
   id: ID!
-  streamer: Streamer! @belongsTo
   viewers: Int!
   createdAt: AWSDateTime
+
+  streamer: Streamer! @belongsTo
 }
